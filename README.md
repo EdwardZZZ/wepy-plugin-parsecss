@@ -13,8 +13,8 @@ npm i -D wepy-plugin-parsecss
       filter: /\.(wxss|css)$/,
       // base64 
       base64Config: {
-        fileLimit: 20,
-        root: __dirname + '/src'
+        maxSize: 20,
+        basePath: __dirname + '/src'
       },
       // autoprefixer
       autoprefixerConfig: {

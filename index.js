@@ -38,7 +38,7 @@ var index = class {
             encodeType: 'base64',
             basePath,
             maxSize
-        })).process(code).then(result => {
+        })).process(code, { from: void 0 }).then(result => {
             result.warnings().forEach(function (warn) {
                 console.warn(warn.toString());
             });

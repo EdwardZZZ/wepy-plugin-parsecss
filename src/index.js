@@ -34,7 +34,7 @@ export default class {
                 basePath,
                 maxSize,
             }))
-            .process(code)
+            .process(code, { from: void 0 })
             .then(result => {
                 result.warnings().forEach(function (warn) {
                     console.warn(warn.toString());
