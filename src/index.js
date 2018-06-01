@@ -4,10 +4,6 @@ import url from 'postcss-url';
 
 export default class {
     constructor(config) {
-        const cfg = {
-            filter: /\.scss$/,
-        };
-
         this.setting = Object.assign({}, cfg, config);
     }
 
@@ -15,7 +11,7 @@ export default class {
         const { code, file } = op;
         const { filter, base64Config, autoprefixerConfig } = this.setting;
 
-        if (!filter.test(file)) {
+        if (!filter.test(file) || code === null) {
             op.next();
             return;
         }

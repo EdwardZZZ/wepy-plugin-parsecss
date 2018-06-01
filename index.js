@@ -15,10 +15,6 @@ var _class = function () {
     function _class(config) {
         _classCallCheck(this, _class);
 
-        var cfg = {
-            filter: /\.scss$/
-        };
-
         this.setting = _Object$assign({}, cfg, config);
     }
 
@@ -33,7 +29,7 @@ var _class = function () {
                 autoprefixerConfig = _setting.autoprefixerConfig;
 
 
-            if (!filter.test(file)) {
+            if (!filter.test(file) || code === null) {
                 op.next();
                 return;
             }
