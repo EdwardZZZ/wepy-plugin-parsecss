@@ -1,6 +1,6 @@
 {
   "name": "wepy-plugin-parsecss",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "wepy plugin base64 autoprefixer",
   "main": "index.js",
   "scripts": {

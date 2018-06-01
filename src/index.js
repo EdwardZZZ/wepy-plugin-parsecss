@@ -4,6 +4,10 @@ import url from 'postcss-url';
 
 export default class {
     constructor(config) {
+        const cfg = {
+            filter: /\.wxss$/
+        };
+
         this.setting = Object.assign({}, cfg, config);
     }
 

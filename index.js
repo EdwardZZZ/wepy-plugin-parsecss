@@ -15,6 +15,10 @@ var _class = function () {
     function _class(config) {
         _classCallCheck(this, _class);
 
+        var cfg = {
+            filter: /\.wxss$/
+        };
+
         this.setting = _Object$assign({}, cfg, config);
     }
 
