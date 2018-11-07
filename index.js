@@ -1,25 +1,26 @@
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('babel-runtime/core-js/object/assign'), require('babel-runtime/helpers/classCallCheck'), require('babel-runtime/helpers/createClass'), require('postcss'), require('autoprefixer'), require('postcss-url')) :
-    typeof define === 'function' && define.amd ? define(['babel-runtime/core-js/object/assign', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', 'postcss', 'autoprefixer', 'postcss-url'], factory) :
-    (global.module = factory(global._Object$assign,global._classCallCheck,global._createClass,global.postcss,global.autoprefixer,global.url));
-}(this, (function (_Object$assign,_classCallCheck,_createClass,postcss,autoprefixer,url) { 'use strict';
+'use strict';
 
-_Object$assign = 'default' in _Object$assign ? _Object$assign['default'] : _Object$assign;
-_classCallCheck = 'default' in _classCallCheck ? _classCallCheck['default'] : _classCallCheck;
-_createClass = 'default' in _createClass ? _createClass['default'] : _createClass;
-postcss = 'default' in postcss ? postcss['default'] : postcss;
-autoprefixer = 'default' in autoprefixer ? autoprefixer['default'] : autoprefixer;
-url = 'default' in url ? url['default'] : url;
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var postcss = _interopDefault(require('postcss'));
+var autoprefixer = _interopDefault(require('autoprefixer'));
+var url = _interopDefault(require('postcss-url'));
+var cssnano = _interopDefault(require('cssnano'));
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _class = function () {
     function _class(config) {
         _classCallCheck(this, _class);
 
         var cfg = {
-            filter: /\.wxss$/
+            filter: /\.wxss$/,
+            compress: false
         };
 
-        this.setting = _Object$assign({}, cfg, config);
+        this.setting = Object.assign({}, cfg, config);
     }
 
     _createClass(_class, [{
@@ -30,10 +31,11 @@ var _class = function () {
             var _setting = this.setting,
                 filter = _setting.filter,
                 base64Config = _setting.base64Config,
-                autoprefixerConfig = _setting.autoprefixerConfig;
+                autoprefixerConfig = _setting.autoprefixerConfig,
+                compress = _setting.compress;
 
 
-            if (!filter.test(file) || code === null) {
+            if (!filter.test(file)) {
                 op.next();
                 return;
             }
@@ -48,7 +50,14 @@ var _class = function () {
                 _base64Config$maxSize = base64Config.maxSize,
                 maxSize = _base64Config$maxSize === undefined ? 20 : _base64Config$maxSize;
 
-            postcss([autoprefixer(autoprefixerCfg)]).use(url({
+            var plugins = [autoprefixer(autoprefixerCfg)];
+            if (compress) {
+                plugins.push(cssnano({
+                    preset: 'default'
+                }));
+            }
+
+            postcss(plugins).use(url({
                 url: "inline",
                 encodeType: 'base64',
                 basePath: basePath,
@@ -67,6 +76,4 @@ var _class = function () {
     return _class;
 }();
 
-return _class;
-
-})));
+module.exports = _class;

@@ -1,16 +1,24 @@
 import babel from 'rollup-plugin-babel';
+import nodeResolve from 'rollup-plugin-node-resolve';
 
 export default {
   entry: 'src/index.js',
   dest: 'index.js',
-  format: 'umd',
+  format: 'cjs',
   moduleName: 'module',
-  // sourceMap: 'inline',
   plugins: [
     babel({
       exclude: 'node_modules/**',
       runtimeHelpers: true
     }),
-    // eslint()
+    nodeResolve({
+      browser: false,
+    }),
   ],
+  external: [
+    'postcss',
+    'autoprefixer',
+    'postcss-url',
+    'cssnano',
+  ]
 };

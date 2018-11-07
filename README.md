@@ -9,6 +9,7 @@ npm i -D wepy-plugin-parsecss
 ```js
   plugins: {
     parsecss: {
+      compressed: false,
       // base64 
       base64Config: {
         maxSize: 20,
